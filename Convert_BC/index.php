@@ -468,6 +468,7 @@ ini_set('memory_limit', '256M');
                             <div>
                                 <strong><i class="fas fa-cloud-download-alt"></i> ดึงจากระบบ FTM SEQ</strong>
                                 <div class="small text-muted">รอบอัตโนมัติ: <span id="apiSchedule">-</span> น.</div>
+                                <div class="small" id="apiCountdown"></div>
                             </div>
                             <button type="button" id="apiSyncBtn" class="btn btn-success btn-sm">
                                 <i class="fas fa-sync-alt"></i> ดึงข้อมูลเดี๋ยวนี้
@@ -563,6 +564,37 @@ ini_set('memory_limit', '256M');
             const syncStatus = document.getElementById('apiSyncStatus');
             const syncResult = document.getElementById('apiSyncResult');
             const scheduleEl = document.getElementById('apiSchedule');
+            const countdownEl = document.getElementById('apiCountdown');
+
+            // นับถอยหลังในเบราว์เซอร์ล้วน ใช้ offset เทียบนาฬิกาเซิร์ฟเวอร์ ไม่ยิง request ซ้ำ
+            let clockOffset = 0;
+            let nextSlot = 0;
+            let refreshedAfterSlot = false;
+
+            function pad(n) { return String(n).padStart(2, '0'); }
+
+            function tick() {
+                if (!nextSlot) { return; }
+                const now = Math.floor(Date.now() / 1000) + clockOffset;
+                let left = nextSlot - now;
+
+                if (left <= 0) {
+                    countdownEl.innerHTML = '<span class="text-primary">ถึงรอบดึงข้อมูลแล้ว กำลังรอผล...</span>';
+                    // ดึงสถานะซ้ำครั้งเดียวหลังเลยรอบไป 1 นาที เพื่อดูผลลัพธ์
+                    if (!refreshedAfterSlot && left <= -60) {
+                        refreshedAfterSlot = true;
+                        loadStatus();
+                    }
+                    return;
+                }
+
+                const h = Math.floor(left / 3600);
+                const m = Math.floor((left % 3600) / 60);
+                const s = left % 60;
+                countdownEl.innerHTML = 'รอบถัดไปอีก <strong>' + pad(h) + ':' + pad(m) + ':' + pad(s) + '</strong>';
+            }
+
+            setInterval(tick, 1000);
 
             function loadStatus() {
                 fetch('api_sync_master.php?action=status')
@@ -573,6 +605,11 @@ ini_set('memory_limit', '256M');
                             return;
                         }
                         scheduleEl.textContent = (data.schedule || []).join(' และ ');
+
+                        clockOffset = data.server_time - Math.floor(Date.now() / 1000);
+                        nextSlot = data.next_slot || 0;
+                        refreshedAfterSlot = false;
+                        tick();
 
                         if (!data.configured) {
                             syncBtn.disabled = true;

@@ -179,6 +179,26 @@ final class MasterDataSync
         return $due;
     }
 
+    /** เวลา (unix) ของรอบดึงอัตโนมัติรอบถัดไป */
+    public function nextSlotTime(): int
+    {
+        $now = time();
+        $candidates = [];
+        foreach ($this->config['master']['schedule'] as $slot) {
+            $candidates[] = strtotime(date('Y-m-d ') . $slot);
+            $candidates[] = strtotime(date('Y-m-d ', strtotime('+1 day')) . $slot);
+        }
+        sort($candidates);
+
+        foreach ($candidates as $time) {
+            if ($time > $now) {
+                return $time;
+            }
+        }
+
+        return 0;
+    }
+
     public function readState(): array
     {
         $file = $this->config['state_file'];

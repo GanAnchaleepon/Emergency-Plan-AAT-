@@ -23,10 +23,14 @@ $action = $_SERVER['REQUEST_METHOD'] === 'POST' ? ($_POST['action'] ?? 'run') : 
 
 if ($action === 'status') {
     $state = $sync->readState();
+    $nextSlot = $sync->nextSlotTime();
     echo json_encode([
         'status'      => 'ok',
         'configured'  => trim((string)($config['user'] ?? '')) !== '' && ($config['pass'] ?? '') !== '',
         'schedule'    => $config['master']['schedule'],
+        'server_time' => time(),
+        'next_slot'   => $nextSlot,
+        'next_label'  => $nextSlot > 0 ? date('d/m/Y H:i', $nextSlot) : null,
         'last_status' => $state['status'] ?? null,
         'last_message'=> $state['message'] ?? null,
         'last_time'   => isset($state['time']) ? date('d/m/Y H:i:s', (int)$state['time']) : null,
