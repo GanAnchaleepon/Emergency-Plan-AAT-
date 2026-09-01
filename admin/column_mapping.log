@@ -2048,3 +2048,19 @@
 แมปฟิลด์ location กับคอลัมน์ location pick (index: 4)
 ผลลัพธ์การแมปปิ้ง: {"group_name":1,"part_number":2,"model":5,"date":6,"time":7,"rotation":0,"supplier":3,"location":4}
 
+========= 2026-09-01 15:43:57 =========
+คอลัมน์ที่พบในไฟล์ CSV:
+[0] Rotation
+[1] PartGroup
+[2] Part_Number
+[3] Supplier
+[4] Location Pick
+[5] Model
+[6] Date
+[7] Time
+แมปฟิลด์ rotation กับคอลัมน์ rotation (index: 0)
+แมปฟิลด์ group_name กับคอลัมน์ partgroup (index: 1)
+แมปฟิลด์ supplier กับคอลัมน์ supplier (index: 3)
+แมปฟิลด์ location กับคอลัมน์ location pick (index: 4)
+ผลลัพธ์การแมปปิ้ง: {"part_number":2,"model":5,"date":6,"time":7,"rotation":0,"group_name":1,"supplier":3,"location":4}
+

@@ -444,6 +444,8 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>หยิบงาน <?php echo htmlspecialchars($current_group_name); ?></title>
+    <!-- ล็อกขนาดการแสดงผลไว้ที่ 70% ให้เหมือนกันทุกเครื่อง ไม่ว่า Windows จะตั้ง Display Scale เท่าไหร่ -->
+    <style>html { zoom: 0.7; }</style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
