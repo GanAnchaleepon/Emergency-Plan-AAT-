@@ -1085,21 +1085,21 @@ $conn->close();
             // สร้างชุดข้อมูลสำหรับกราฟ
             const datasets = [];
             const colors = [
-                'rgba(41, 128, 185, 0.7)', // สีน้ำเงิน
-                'rgba(39, 174, 96, 0.7)',  // สีเขียว
-                'rgba(243, 156, 18, 0.7)', // สีเหลือง
-                'rgba(231, 76, 60, 0.7)',  // สีแดง
-                'rgba(142, 68, 173, 0.7)', // สีม่วง
-                'rgba(230, 126, 34, 0.7)', // สีส้ม
-                'rgba(149, 165, 166, 0.7)' // สีเทา
+                { bg: 'rgba(41, 128, 185, 0.7)',  border: 'rgba(41, 128, 185, 1)' },  // สีน้ำเงิน
+                { bg: 'rgba(39, 174, 96, 0.7)',   border: 'rgba(39, 174, 96, 1)' },   // สีเขียว
+                { bg: 'rgba(243, 156, 18, 0.7)',  border: 'rgba(243, 156, 18, 1)' },  // สีเหลือง
+                { bg: 'rgba(231, 76, 60, 0.7)',   border: 'rgba(231, 76, 60, 1)' },   // สีแดง
+                { bg: 'rgba(142, 68, 173, 0.7)',  border: 'rgba(142, 68, 173, 1)' },  // สีม่วง
+                { bg: 'rgba(230, 126, 34, 0.7)',  border: 'rgba(230, 126, 34, 1)' },  // สีส้ม
+                { bg: 'rgba(149, 165, 166, 0.7)', border: 'rgba(149, 165, 166, 1)' }  // สีเทา
             ];
-            
+            <?php $colorCount = 7; // จำนวนสีใน colors ด้านบน ต้องตรงกันเสมอ ?>
             <?php foreach ($chartData as $index => $dataset): ?>
             datasets.push({
                 label: '<?php echo addslashes($dataset['label']); ?>',
                 data: <?php echo json_encode($dataset['data']); ?>,
-                backgroundColor: colors[<?php echo $index % count($colors); ?>],
-                borderColor: colors[<?php echo $index % count($colors); ?>].replace('0.7', '1'),
+                backgroundColor: colors[<?php echo $index % $colorCount; ?>].bg,
+                borderColor: colors[<?php echo $index % $colorCount; ?>].border,
                 borderWidth: 1
             });
             <?php endforeach; ?>
