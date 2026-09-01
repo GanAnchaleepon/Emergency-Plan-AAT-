@@ -2,11 +2,20 @@
 // ตั้งค่า timezone เป็นเวลาประเทศไทย
 date_default_timezone_set('Asia/Bangkok');
 
-// ข้อมูลการเชื่อมต่อฐานข้อมูล
-$host = "127.0.0.1:3306";
-$username = "u829165346_BCP_AAT";
-$password = "Gan05061997@";
-$dbname = "u829165346_BCP_AAT";
+// สลับข้อมูลการเชื่อมต่อฐานข้อมูลอัตโนมัติ ระหว่าง localhost (XAMPP) กับ Hostinger
+$isLocalhost = in_array($_SERVER['SERVER_NAME'] ?? '', ['localhost', '127.0.0.1']);
+
+if ($isLocalhost) {
+    $host = "127.0.0.1";
+    $username = "root";
+    $password = "";
+    $dbname = "bcp_aat";
+} else {
+    $host = "127.0.0.1:3306";
+    $username = "u829165346_BCP_AAT";
+    $password = "Gan05061997@";
+    $dbname = "u829165346_BCP_AAT";
+}
 
 // สร้างการเชื่อมต่อ
 $conn = new mysqli($host, $username, $password, $dbname);

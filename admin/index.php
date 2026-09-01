@@ -139,6 +139,7 @@ $conn->close();
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../includes/navbar.css">
     <style>
         :root {
             --primary-color: #1a4f72; /* สีน้ำเงินเข้ม สื่อถึงความเป็นทางการ */
@@ -159,78 +160,6 @@ $conn->close();
             color: var(--dark-color);
         }
 
-        /* ปรับปรุง Navbar */
-        .navbar {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            padding: 0;
-            white-space: nowrap;
-            height: 60px;
-        }
-
-        .navbar-brand {
-            color: white !important;
-            font-weight: 600;
-            font-size: 1.2rem;
-            padding: 0.5rem 1rem;
-            display: flex;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.1);
-            height: 60px;
-            margin-right: 0;
-            white-space: nowrap;
-        }
-
-        .navbar-brand i {
-            margin-right: 0.5rem;
-            font-size: 1.5rem;
-            color: #ffcc00;
-        }
-
-        .navbar-nav {
-            display: flex;
-            align-items: center;
-        }
-
-        .navbar-dark .navbar-nav .nav-link {
-            color: rgba(255, 255, 255, 0.85);
-            padding: 0 0.9rem;
-            font-weight: 500;
-            position: relative;
-            transition: all 0.3s;
-            height: 60px;
-            line-height: 60px;
-            white-space: nowrap;
-        }
-
-        .navbar-dark .navbar-nav .nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-
-        .navbar-dark .navbar-nav .nav-link.active {
-            color: white;
-            font-weight: 600;
-            background-color: rgba(0, 0, 0, 0.2);
-            box-shadow: inset 0 -3px 0 #ffcc00;
-        }
-
-        .navbar-dark .navbar-nav .nav-link i {
-            margin-right: 0.3rem;
-            font-size: 1rem;
-            vertical-align: middle;
-        }
-
-        .navbar-toggler {
-            border: none;
-            padding: 0.8rem;
-        }
-
-        .navbar-toggler:focus {
-            outline: none;
-            box-shadow: none;
-        }
-
         .badge-new {
             position: absolute;
             top: 10px;
@@ -241,40 +170,6 @@ $conn->close();
             border-radius: 10px;
             font-weight: bold;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        .navbar-nav .logout-link {
-            background-color: rgba(224, 79, 79, 0.2);
-            margin-left: 0.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .navbar-nav .logout-link:hover {
-            background-color: #e74c3c;
-            color: white;
-        }
-
-        .navbar-nav .logout-link i {
-            color: #ffcc00;
-        }
-
-        /* ปรับแต่งเพิ่มเติมสำหรับ Responsive */
-        @media (max-width: 992px) {
-            .navbar-nav .nav-link {
-                padding: 0.5rem 1rem;
-                height: auto;
-                line-height: normal;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            .navbar-dark .navbar-nav .nav-link.active {
-                box-shadow: inset 3px 0 0 #ffcc00;
-            }
-
-            .navbar-nav .logout-link {
-                margin: 0.5rem 1rem;
-                text-align: center;
-            }
         }
 
         /* ส่วนของ CSS สำหรับเนื้อหาอื่นๆ */
@@ -661,67 +556,7 @@ $conn->close();
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="../">
-                <i class="fas fa-warehouse"></i>
-                Emergency Picking (Operation TTV AAT-Wiring)
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="index.php">
-                            <i class="fas fa-tachometer-alt"></i> แดชบอร์ด
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../Convert_BC/index.php">
-                            <i class="fas fa-exchange-alt"></i> Convert BC
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="upload.php">
-                            <i class="fas fa-upload"></i> อัปโหลด
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="print_bulk_stickers.php">
-                            <i class="fas fa-print"></i> พิมพ์สติกเกอร์
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="print_summary.php">
-                            <i class="fas fa-file-pdf"></i> พิมพ์ใบสรุป
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="history.php">
-                            <i class="fas fa-history"></i> ประวัติ
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="reports.php">
-                            <i class="fas fa-chart-bar"></i> รายงาน
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="position_mapping.php">
-                            <i class="fas fa-map-marker-alt"></i> กำหนดจุดเริ่มต้น Position
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link logout-link" href="logout.php">
-                            <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php include __DIR__ . '/../includes/navbar.php'; ?>
 
     <!-- Main Content -->
     <div class="main-content">

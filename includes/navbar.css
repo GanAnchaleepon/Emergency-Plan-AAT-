@@ -1,0 +1,147 @@
+/* ===== Navbar กลางของระบบ Emergency Picking (คู่กับ includes/navbar.php) =====
+   ใช้ prefix .app-navbar เพื่อไม่ให้ชนกับ CSS เดิมของแต่ละหน้า                */
+
+.app-navbar {
+    background: linear-gradient(135deg, var(--primary-color, #1a4f72) 0%, var(--secondary-color, #2980b9) 100%);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    padding: 0;
+    height: 60px;
+    white-space: nowrap;
+}
+
+.app-navbar .navbar-brand {
+    color: #fff !important;
+    font-weight: 600;
+    font-size: 1.2rem;
+    height: 60px;
+    margin-right: 0;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+}
+
+.app-navbar .navbar-brand i {
+    margin-right: 0.5rem;
+    font-size: 1.5rem;
+    color: #ffcc00;
+}
+
+.app-navbar .navbar-toggler {
+    border: none;
+    padding: 0.8rem;
+}
+
+.app-navbar .navbar-toggler:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.app-navbar .navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+.app-navbar.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.85);
+    padding: 0 0.9rem;
+    height: 60px;
+    line-height: 60px;
+    font-weight: 500;
+    position: relative;
+    white-space: nowrap;
+    transition: all 0.3s;
+}
+
+.app-navbar.navbar-dark .navbar-nav .nav-link:hover,
+.app-navbar.navbar-dark .navbar-nav .nav-link:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.app-navbar.navbar-dark .navbar-nav .nav-link.active {
+    color: #fff;
+    font-weight: 600;
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 -3px 0 #ffcc00;
+}
+
+.app-navbar.navbar-dark .navbar-nav .nav-link i {
+    margin-right: 0.3rem;
+    font-size: 1rem;
+    vertical-align: middle;
+}
+
+.app-navbar .navbar-nav .logout-link {
+    background-color: rgba(224, 79, 79, 0.2);
+    margin-left: 0.5rem;
+}
+
+.app-navbar.navbar-dark .navbar-nav .logout-link:hover {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.app-navbar .navbar-nav .logout-link i {
+    color: #ffcc00;
+}
+
+/* จอกว้างไม่พอเรียงเมนูครบ ให้เลื่อนแนวนอนแทนการล้นออกนอกจอ */
+@media (min-width: 992px) {
+    .app-navbar .navbar-collapse {
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .app-navbar .navbar-collapse::-webkit-scrollbar {
+        height: 0;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1400px) {
+    .app-navbar .navbar-brand {
+        font-size: 1.05rem;
+    }
+
+    .app-navbar.navbar-dark .navbar-nav .nav-link {
+        padding: 0 0.6rem;
+        font-size: 0.92rem;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .app-navbar {
+        height: auto;
+    }
+
+    .app-navbar .navbar-collapse {
+        background: rgba(0, 0, 0, 0.15);
+        max-height: calc(100vh - 60px);
+        overflow-y: auto;
+    }
+
+    .app-navbar.navbar-dark .navbar-nav .nav-link {
+        height: auto;
+        line-height: normal;
+        padding: 0.65rem 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .app-navbar.navbar-dark .navbar-nav .nav-link.active {
+        box-shadow: inset 3px 0 0 #ffcc00;
+    }
+
+    .app-navbar .navbar-nav .logout-link {
+        margin: 0.5rem 1rem;
+        text-align: center;
+        border-radius: 4px;
+    }
+}
+
+/* ซ่อน navbar ตอนสั่งพิมพ์ */
+@media print {
+    .app-navbar {
+        display: none !important;
+    }
+}

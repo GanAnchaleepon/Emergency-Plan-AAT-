@@ -384,6 +384,7 @@ foreach ($planData as $plan) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../includes/navbar.css">
     <style>
         :root {
             --primary-color: #1a4f72;
@@ -399,62 +400,6 @@ foreach ($planData as $plan) {
         body {
             font-family: 'Sarabun', sans-serif;
             background-color: #f5f7fa;
-        }
-        
-        /* ปรับปรุง Navbar */
-        .navbar {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            padding: 0;
-            white-space: nowrap;
-            height: 60px;
-        }
-
-        .navbar-brand {
-            color: white !important;
-            font-weight: 600;
-            font-size: 1.2rem;
-            padding: 0.5rem 1rem;
-            display: flex;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.1);
-            height: 60px;
-            margin-right: 0;
-            white-space: nowrap;
-        }
-
-        .navbar-brand i {
-            margin-right: 0.5rem;
-            font-size: 1.5rem;
-            color: #ffcc00;
-        }
-
-        .navbar-nav {
-            display: flex;
-            align-items: center;
-        }
-
-        .navbar-dark .navbar-nav .nav-link {
-            color: rgba(255, 255, 255, 0.85);
-            padding: 0 0.9rem;
-            font-weight: 500;
-            position: relative;
-            transition: all 0.3s;
-            height: 60px;
-            line-height: 60px;
-            white-space: nowrap;
-        }
-
-        .navbar-dark .navbar-nav .nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-
-        .navbar-dark .navbar-nav .nav-link.active {
-            color: white;
-            font-weight: 600;
-            background-color: rgba(0, 0, 0, 0.2);
-            box-shadow: inset 0 -3px 0 #ffcc00;
         }
         
         .container {
@@ -571,67 +516,7 @@ foreach ($planData as $plan) {
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="../">
-                <i class="fas fa-warehouse"></i>
-                Emergency Picking (Operation TTV AAT-Wiring)
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php">
-                            <i class="fas fa-tachometer-alt"></i> แดชบอร์ด
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../Convert_BC/index.php">
-                            <i class="fas fa-exchange-alt"></i> Convert BC
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="upload.php">
-                            <i class="fas fa-upload"></i> อัปโหลด
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="print_bulk_stickers.php">
-                            <i class="fas fa-print"></i> พิมพ์สติกเกอร์
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="print_summary.php">
-                            <i class="fas fa-file-pdf"></i> พิมพ์ใบสรุป
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="history.php">
-                            <i class="fas fa-history"></i> ประวัติ
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="reports.php">
-                            <i class="fas fa-chart-bar"></i> รายงาน
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="position_mapping.php">
-                            <i class="fas fa-map-marker-alt"></i> กำหนดจุดเริ่มต้น Position
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link logout-link" href="logout.php">
-                            <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php include __DIR__ . '/../includes/navbar.php'; ?>
 
     <div class="container">
         <!-- คำอธิบายการทำงาน -->
