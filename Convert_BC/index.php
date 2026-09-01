@@ -576,7 +576,7 @@ ini_set('memory_limit', '256M');
 
                         if (!data.configured) {
                             syncBtn.disabled = true;
-                            syncStatus.innerHTML = '<span class="text-danger">ยังไม่ได้ตั้งค่า — กรุณาสร้างไฟล์ config/ftmseq.local.php</span>';
+                            syncStatus.innerHTML = '<span class="text-danger">ยังไม่ได้ตั้งค่า — กรุณากรอก user/pass ในไฟล์ config/ftmseq.local.php</span>';
                             return;
                         }
                         if (!data.last_time) {

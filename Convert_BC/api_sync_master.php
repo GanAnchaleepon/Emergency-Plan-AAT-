@@ -25,7 +25,7 @@ if ($action === 'status') {
     $state = $sync->readState();
     echo json_encode([
         'status'      => 'ok',
-        'configured'  => is_file(__DIR__ . '/../config/ftmseq.local.php'),
+        'configured'  => trim((string)($config['user'] ?? '')) !== '' && ($config['pass'] ?? '') !== '',
         'schedule'    => $config['master']['schedule'],
         'last_status' => $state['status'] ?? null,
         'last_message'=> $state['message'] ?? null,
