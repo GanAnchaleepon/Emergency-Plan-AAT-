@@ -408,6 +408,14 @@ ini_set('memory_limit', '256M');
         }
         
         /* เพิ่ม style สำหรับ progress bar */
+        .api-sync-box {
+            background: #f1f8f4;
+            border: 1px solid #cfe8d8;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+        }
+
         .progress-container {
             margin-top: 15px;
             display: none;
@@ -454,6 +462,23 @@ ini_set('memory_limit', '256M');
             <div class="col-md-6">
                 <div class="tool-box">
                     <h3><i class="fas fa-database"></i> Import Master Data</h3>
+
+                    <div class="api-sync-box">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap">
+                            <div>
+                                <strong><i class="fas fa-cloud-download-alt"></i> ดึงจากระบบ FTM SEQ</strong>
+                                <div class="small text-muted">รอบอัตโนมัติ: <span id="apiSchedule">-</span> น.</div>
+                            </div>
+                            <button type="button" id="apiSyncBtn" class="btn btn-success btn-sm">
+                                <i class="fas fa-sync-alt"></i> ดึงข้อมูลเดี๋ยวนี้
+                            </button>
+                        </div>
+                        <div id="apiSyncStatus" class="small mt-2 text-muted">กำลังตรวจสอบสถานะ...</div>
+                        <div id="apiSyncResult"></div>
+                    </div>
+
+                    <hr>
+                    <p class="small text-muted mb-2">หรือนำเข้าจากไฟล์ CSV ด้วยตนเอง</p>
                     <form id="importMasterForm" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="master_file">เลือกไฟล์ Master (.csv):</label>
@@ -531,6 +556,71 @@ ini_set('memory_limit', '256M');
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
     <!-- เพิ่ม script สำหรับจัดการการอัปโหลดและแสดงความคืบหน้า -->
+    <script>
+        // ดึง Master Data จาก FTM SEQ API
+        document.addEventListener('DOMContentLoaded', function() {
+            const syncBtn = document.getElementById('apiSyncBtn');
+            const syncStatus = document.getElementById('apiSyncStatus');
+            const syncResult = document.getElementById('apiSyncResult');
+            const scheduleEl = document.getElementById('apiSchedule');
+
+            function loadStatus() {
+                fetch('api_sync_master.php?action=status')
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data.status !== 'ok') {
+                            syncStatus.textContent = data.message || 'อ่านสถานะไม่สำเร็จ';
+                            return;
+                        }
+                        scheduleEl.textContent = (data.schedule || []).join(' และ ');
+
+                        if (!data.configured) {
+                            syncBtn.disabled = true;
+                            syncStatus.innerHTML = '<span class="text-danger">ยังไม่ได้ตั้งค่า — กรุณาสร้างไฟล์ config/ftmseq.local.php</span>';
+                            return;
+                        }
+                        if (!data.last_time) {
+                            syncStatus.textContent = 'ยังไม่เคยดึงข้อมูล';
+                            return;
+                        }
+                        const ok = data.last_status === 'success';
+                        syncStatus.innerHTML = 'รอบล่าสุด: <strong>' + data.last_time + '</strong>'
+                            + ' (' + (data.last_trigger === 'cron' ? 'อัตโนมัติ' : 'ดึงเอง') + ') '
+                            + '<span class="' + (ok ? 'text-success' : 'text-danger') + '">' + data.last_message + '</span>';
+                    })
+                    .catch(err => { syncStatus.textContent = 'อ่านสถานะไม่สำเร็จ: ' + err.message; });
+            }
+
+            syncBtn.addEventListener('click', function() {
+                if (!confirm('ระบบจะล้างข้อมูล Master เดิมแล้วแทนที่ด้วยข้อมูลจาก FTM SEQ ต้องการดำเนินการต่อหรือไม่?')) {
+                    return;
+                }
+                syncBtn.disabled = true;
+                syncResult.innerHTML = '';
+                syncStatus.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังดึงข้อมูลจาก FTM SEQ...';
+
+                const body = new URLSearchParams({ action: 'run' });
+                fetch('api_sync_master.php', { method: 'POST', body: body })
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            syncResult.innerHTML = '<div class="alert alert-success mt-2 mb-0">' + data.message + '</div>';
+                        } else {
+                            syncResult.innerHTML = '<div class="alert alert-danger mt-2 mb-0">' + data.message + '</div>';
+                        }
+                        loadStatus();
+                    })
+                    .catch(err => {
+                        syncResult.innerHTML = '<div class="alert alert-danger mt-2 mb-0">' + err.message + '</div>';
+                        loadStatus();
+                    })
+                    .finally(() => { syncBtn.disabled = false; });
+            });
+
+            loadStatus();
+        });
+    </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const importForm = document.getElementById('importMasterForm');

@@ -1,0 +1,15 @@
+# ความลับ ห้ามขึ้น git
+/config/ftmseq.local.php
+/config/database.local.php
+
+# ไฟล์สถานะ/คุกกี้/ใบรับรอง ที่ระบบสร้างเอง
+/storage/*.cookies
+/storage/*.state.json
+/storage/*.lock
+/storage/logs/*
+/storage/certs/*.pem
+
+# ไฟล์ชั่วคราวจากการอัปโหลด/แปลง
+/Convert_BC/*.csv
+!/Convert_BC/Master.csv
+!/Convert_BC/template.csv
